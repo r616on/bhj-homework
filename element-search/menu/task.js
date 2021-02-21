@@ -6,7 +6,6 @@ for (let i = 0; i < menuItem.length; i++) {
 }
 
 function subMenuActiv() {
-   this.querySelector(".menu_sub");
 
    if (this.querySelector(".menu_sub")) {
       clearMenuActiv();
