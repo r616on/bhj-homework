@@ -1,54 +1,46 @@
 const prev = document.querySelector(".slider__arrow_prev");
 const next = document.querySelector(".slider__arrow_next");
 const arrItems = Array.from(document.querySelectorAll(".slider__item"));
-
 const dots = Array.from(document.querySelectorAll(".slider__dot"));
 
-let activIndex = arrItems.findIndex((item) => {
-   if (item.className === "slider__item slider__item_active") {
-      return true
-   }
-})
-dots[activIndex].className = "slider__dot slider__dot_active";
+let activIndex = arrItems.findIndex((item) => item.classList.contains("slider__item_active"))
+
+activSlide(activIndex);
 
 next.onclick = function () {
-   clearDots();
-   activIndex++
+   clear(activIndex);
+   activIndex++;
    if (activIndex > (arrItems.length - 1)) {
       activIndex = 0;
    }
-   arrItems[activIndex].className = "slider__item slider__item_active";
-   dots[activIndex].className = "slider__dot slider__dot_active";
+   activSlide(activIndex);
 
 }
 prev.onclick = function () {
-   clearDots();
-   activIndex--
+   clear(activIndex);
+   activIndex--;
    if (activIndex < 0) {
       activIndex = (arrItems.length - 1);
    }
-   arrItems[activIndex].className = "slider__item slider__item_active";
-   dots[activIndex].className = "slider__dot slider__dot_active";
-
-
+   activSlide(activIndex);
 }
 
 for (let i = 0; i < dots.length; i++) {
    dots[i].onclick = function () {
-      clearDots();
-      this.className = "slider__dot slider__dot_active";
-      let dotsIndex = dots.findIndex((item) => {
-         if (item.className === "slider__dot slider__dot_active") {
-            return true
-         }
-      })
-      arrItems[dotsIndex].className = "slider__item slider__item_active";
+      clear(activIndex);
+      this.classList.add("slider__dot_active");
+      let dotsIndex = dots.findIndex((item) => item.classList.contains("slider__dot_active"))
+      activSlide(dotsIndex);
       activIndex = dotsIndex;
    }
 }
 
-function clearDots() {
-   dots.forEach(element => element.className = "slider__dot");
-   arrItems.forEach(element => element.className = "slider__item");
+function clear(i) {
+   dots[i].classList.remove("slider__dot_active")
+   arrItems[i].classList.remove("slider__item_active")
+}
+function activSlide(i) {
+   arrItems[i].classList.add("slider__item_active");
+   dots[i].classList.add("slider__dot_active");
 }
 
