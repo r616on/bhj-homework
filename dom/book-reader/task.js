@@ -1,11 +1,11 @@
 const book = document.getElementById("book");
 
-const controls = Array.from(book.querySelectorAll(".font-size"));
-//console.log(controls);
-controls.forEach((item) => item.onclick = function () {
-   console.log(controls);
+const controls = Array.from(document.querySelectorAll(".font-size"));
+console.log(controls);
+controls.forEach((item) => item.addEventListener("click", function () {
+   console.log("11111");
 
-})
+}))
 
 
 
