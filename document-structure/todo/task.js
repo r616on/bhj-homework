@@ -4,14 +4,14 @@ const list = document.getElementById("tasks__list");
 
 add.addEventListener("click", addTasks);
 function addTasks(e) {
+   e.preventDefault();
    if (input.value.trim()) {
       let child = document.createElement("div");
-      child.innerHTML = `<div class="task">
-      <div class="task__title">
+      child.className = "task";
+      child.innerHTML = `<div class="task__title">
           ${input.value}
       </div>
-      <a href="#" class="task__remove">&times;</a>
-      </div>`
+      <a href="#" class="task__remove">&times;</a>`
       const del = child.querySelector(".task__remove");
       del.addEventListener("click", (e) => {
          e.preventDefault();
