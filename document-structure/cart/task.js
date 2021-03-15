@@ -19,32 +19,34 @@ control.forEach((item) => item.addEventListener("click", (e) => {
 }));
 
 productAdd.forEach((item) => item.addEventListener("click", (e) => {
-   if (!(cart.classList.contains("cart-active"))) {
-      cart.classList.add("cart-active");
-   };
    const perentElement = e.target.closest(".product");
    const img = perentElement.querySelector(".product__image")
    const value = perentElement.querySelector(".product__quantity-value");
    const cartProductsArr = Array.from(document.querySelectorAll(".cart__product"));
    let index = cartProductsArr.findIndex((item) => +item.dataset.id === +perentElement.dataset.id)
 
-   if (index === (-1)) {
-      let productNode = document.createElement('div');
-      productNode.className = "cart__product";
-      productNode.dataset.id = perentElement.dataset.id;
-      productNode.innerHTML = `<img class="cart__product-image" src="${img.src}">
+   if (+value.textContent > 0) {
+      if (!(cart.classList.contains("cart-active"))) {
+         cart.classList.add("cart-active");
+      };
+      if (index === (-1)) {
+         let productNode = document.createElement('div');
+         productNode.className = "cart__product";
+         productNode.dataset.id = perentElement.dataset.id;
+         productNode.innerHTML = `<img class="cart__product-image" src="${img.src}">
                            <div class="cart__product-count">${value.textContent}</div>
                            <div class="cart__remove">x</div>
                            `;
 
-      productNode.querySelector(".cart__remove").addEventListener("click", (e) => {
-         const perentElement = e.target.closest(".cart__product");
-         perentElement.remove();
-      });
-      cartProducts.append(productNode);
-   } else {
-      const presentCartCount = cartProductsArr[index].querySelector(".cart__product-count");
-      presentCartCount.textContent = + presentCartCount.textContent + +value.textContent;
+         productNode.querySelector(".cart__remove").addEventListener("click", (e) => {
+            const perentElement = e.target.closest(".cart__product");
+            perentElement.remove();
+         });
+         cartProducts.append(productNode);
+      } else {
+         const presentCartCount = cartProductsArr[index].querySelector(".cart__product-count");
+         presentCartCount.textContent = + presentCartCount.textContent + +value.textContent;
+      }
    }
 
 }));
