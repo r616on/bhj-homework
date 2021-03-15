@@ -19,5 +19,6 @@ function addTasks(e) {
          perent.remove();
       })
       list.append(child);
+      input.value = "";
    }
 }
